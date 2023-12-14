@@ -12,15 +12,11 @@ from utils import import_test_configuration, set_sumo, set_test_path
 
 
 if __name__ == "__main__":
-    #calling methods for configuration
-    config = import_test_configuration(config_file='testing_settings.ini')
-    #sumo intergration
-    sumo_cmd = set_sumo(config['gui'], config['sumocfg_file_name'], config['max_steps'])
-    #path setting
-    model_path, plot_path = set_test_path(config['models_path_name'], config['model_to_test'])
-
-    Model = TestModel(
-        input_dim=config['num_states'],
+    config = import_test_configuration(config_file='testing_settings.ini')                              #calling methods for configuration
+    sumo_cmd = set_sumo(config['gui'], config['sumocfg_file_name'], config['max_steps'])                #integrating sumo
+    model_path, plot_path = set_test_path(config['models_path_name'], config['model_to_test'])           #path setting
+    Model = TestModel(                                                                                  #tesing model
+        input_dim=config['num_states'], 
         model_path=model_path
     )
 
@@ -46,7 +42,7 @@ if __name__ == "__main__":
     )
 
     print('\n----- Test episode')
-    simulation_time = Simulation.run(config['episode_seed'])  # run the simulation
+    simulation_time = Simulation.run(config['episode_seed'])                                                # run the simulation
     print('Simulation time:', simulation_time, 's')
 
     print("----- Testing info saved at:", plot_path)
