@@ -3,7 +3,6 @@ from sumolib import checkBinary
 import os
 import sys
 
-
 def import_train_configuration(config_file):
     content = configparser.ConfigParser()                           #model configuration
     content.read(config_file)
