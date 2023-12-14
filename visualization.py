@@ -6,14 +6,10 @@ class Visualization:
             self._path = path
             self._dpi = dpi
 
-
     def save_data_and_plot(self, data, filename, xlabel, ylabel):
-        #generate agents's plot of performance over the session and relative data are saved to txt
-        min_val = min(data)
+        min_val = min(data)                                                                           #generate agents's plot of performance over the session and relative data are saved to txt
         max_val = max(data)
-
         plt.rcParams.update({'font.size': 24})  # set bigger font size
-
         plt.plot(data)
         plt.ylabel(ylabel)
         plt.xlabel(xlabel)
