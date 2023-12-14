@@ -12,14 +12,13 @@ from model import TrainModel
 from visualization import Visualization
 from utils import import_train_configuration, set_sumo, set_train_path
 
-
 if __name__ == "__main__":
     #calling method for configuration of model
     config = import_train_configuration(config_file='training_settings.ini')
     sumo_cmd = set_sumo(config['gui'], config['sumocfg_file_name'], config['max_steps'])
     path = set_train_path(config['models_path_name'])
 
-    Model = TrainModel(
+    Model = TrainModel(                                          #train the model
         config['num_layers'],
         config['width_layers'],
         config['batch_size'],
