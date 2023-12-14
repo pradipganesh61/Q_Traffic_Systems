@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
-
     <location netOffset="0.00,0.00" convBoundary="-750.00,-750.00,750.00,750.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
-
     <edge id=":TL_0" function="internal">
         <lane id=":TL_0_0" index="0" speed="6.51" length="9.03" shape="-11.20,16.80 -11.55,14.35 -12.60,12.60 -14.35,11.55 -16.80,11.20"/>
     </edge>
@@ -47,7 +45,6 @@
     <edge id=":TL_19" function="internal">
         <lane id=":TL_19_0" index="0" speed="11.36" length="29.67" shape="-16.80,-1.60 -8.75,-0.45 -3.00,3.00 0.45,8.75 1.60,16.80"/>
     </edge>
-
     <edge id="E2TL" from="DE" to="TL" priority="-1" length="750.00">
         <lane id="E2TL_0" index="0" speed="13.89" length="750.00" shape="750.00,11.20 16.80,11.20"/>
         <lane id="E2TL_1" index="1" speed="13.89" length="750.00" shape="750.00,8.00 16.80,8.00"/>
@@ -176,5 +173,4 @@
     <connection from=":TL_16" to="TL2E" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":TL_16" to="TL2E" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":TL_19" to="TL2N" fromLane="0" toLane="3" dir="l" state="M"/>
-
 </net>
