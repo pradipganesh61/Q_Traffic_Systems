@@ -137,7 +137,6 @@ class Simulation:
         yellow_phase_code = old_action * 2 + 1 # obtain the yellow phase code, based on the old action (ref on environment.net.xml)
         traci.trafficlight.setPhase("TL", yellow_phase_code)
 
-
     def _set_green_phase(self, action_number):
         #Activate the correct green light combination in sumo
         if action_number == 0:
@@ -148,7 +147,6 @@ class Simulation:
             traci.trafficlight.setPhase("TL", PHASE_EW_GREEN)
         elif action_number == 3:
             traci.trafficlight.setPhase("TL", PHASE_EWL_GREEN)
-
 
     def _get_queue_length(self):
         #Retrieve the number of cars with speed = 0 in every incoming lane
@@ -223,9 +221,7 @@ class Simulation:
 
             if valid_car:
                 state[car_position] = 1  # write the position of the car car_id in the state array in the form of "cell occupied"
-
         return state
-
 
     def _replay(self):
         #Retrieve a group of samples from the memory and for each of them update the learning equation, then train
@@ -252,25 +248,20 @@ class Simulation:
 
             self._Model.train_batch(x, y)  # train the NN
 
-
     def _save_episode_stats(self):
         #Save the stats of the episode to plot the graphs at the end of the session
         self._reward_store.append(self._sum_neg_reward)  # how much negative reward in this episode
         self._cumulative_wait_store.append(self._sum_waiting_time)  # total number of seconds waited by cars in this episode
         self._avg_queue_length_store.append(self._sum_queue_length / self._max_steps)  # average number of queued cars per step, in this episode
 
-
     @property
     def reward_store(self):
         return self._reward_store
-
 
     @property
     def cumulative_wait_store(self):
         return self._cumulative_wait_store
 
-
     @property
     def avg_queue_length_store(self):
         return self._avg_queue_length_store
-
