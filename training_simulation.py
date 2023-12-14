@@ -33,17 +33,12 @@ class Simulation:
         self._avg_queue_length_store = []
         self._training_epochs = training_epochs
 
-
     def run(self, episode, epsilon):
-        #Runs an episode of simulation, then starts a training session
-        start_time = timeit.default_timer()
-
-        # first, generate the route file for this simulation and set up sumo
-        self._TrafficGen.generate_routefile(seed=episode)
+        start_time = timeit.default_timer()                                      #Runs an episode of simulation, then starts a training session
+        self._TrafficGen.generate_routefile(seed=episode)                        #first, generate the route file for this simulation and set up sumo
         traci.start(self._sumo_cmd)
         print("Simulating--------->")
-
-        #inits
+                                                                                            #inits
         self._step = 0
         self._waiting_times = {}
         self._sum_neg_reward = 0
@@ -102,8 +97,7 @@ class Simulation:
         return simulation_time, training_time
 
 
-    def _simulate(self, steps_todo):
-        #Execute steps in sumo while gathering statistics
+    def _simulate(self, steps_todo):                                        #Execute steps in sumo while gathering statistics
         if (self._step + steps_todo) >= self._max_steps:  # do not do more steps than the maximum allowed number of steps
             steps_todo = self._max_steps - self._step
 
@@ -115,10 +109,8 @@ class Simulation:
             self._sum_queue_length += queue_length
             self._sum_waiting_time += queue_length # 1 step while wating in queue means 1 second waited, for each car, therefore queue_lenght == waited_seconds
 
-
     def _collect_waiting_times(self):
-        #Retrieve the waiting time of every car in the incoming roads
-        incoming_roads = ["E2TL", "N2TL", "W2TL", "S2TL"]
+        incoming_roads = ["E2TL", "N2TL", "W2TL", "S2TL"]                                       #Retrieve the waiting time of every car in the incoming roads
         car_list = traci.vehicle.getIDList()
         for car_id in car_list:
             wait_time = traci.vehicle.getAccumulatedWaitingTime(car_id)
