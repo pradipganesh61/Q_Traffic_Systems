@@ -4,7 +4,6 @@ from __future__ import print_function
 import os
 import datetime
 from shutil import copyfile
-
 from training_simulation import Simulation
 from generator import TrafficGenerator
 from memory import Memory
