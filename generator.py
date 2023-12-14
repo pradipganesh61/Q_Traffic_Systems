@@ -7,26 +7,19 @@ class TrafficGenerator:
         self._max_steps = max_steps
 
     def generate_routefile(self, seed):
-        #Generation of the route of every car for one episode
-        np.random.seed(seed)  # make tests reproducible
-
-        #the generation of cars is distributed according to a weibull distribution
-        timings = np.random.weibull(2, self._n_cars_generated)
+        np.random.seed(seed)                              # make tests reproducible         #Generation of the route of every car for one episode
+        timings = np.random.weibull(2, self._n_cars_generated)     #the generation of cars is distributed according to a weibull distribution
         timings = np.sort(timings)
-
-        #reshape the distribution to fit the interval 0:max_steps
-        car_gen_steps = []
+        car_gen_steps = []                                                   #reshape the distribution to fit the interval 0:max_steps
         min_old = math.floor(timings[1])
         max_old = math.ceil(timings[-1])
         min_new = 0
         max_new = self._max_steps
         for value in timings:
             car_gen_steps = np.append(car_gen_steps, ((max_new - min_new) / (max_old - min_old)) * (value - max_old) + max_new)
-
         car_gen_steps = np.rint(car_gen_steps)  #round every value to int -> effective steps when a car will be generated
-
-        #produce the file for cars generation, one car per line
-        with open("intersection/episode_routes.rou.xml", "w") as routes:
+        
+        with open("intersection/episode_routes.rou.xml", "w") as routes                         #produce the file for cars generation, one car per line
             print("""<routes>
             <vType accel="1.0" decel="4.5" id="standard_car" length="5.0" minGap="2.5" maxSpeed="25" sigma="0.5" />
 
@@ -55,8 +48,10 @@ class TrafficGenerator:
                         print('    <vehicle id="N_S_%i" type="standard_car" route="N_S" depart="%s" departLane="random" departSpeed="10" />' % (car_counter, step), file=routes)
                     else:
                         print('    <vehicle id="S_N_%i" type="standard_car" route="S_N" depart="%s" departLane="random" departSpeed="10" />' % (car_counter, step), file=routes)
-                else:  #car that turn -25% of the time the car turns
-                    route_turn = np.random.randint(1, 9)  #choose random source source & destination
+                #This section is for the car that turn -25% of the time the car turns
+                else:
+                    #choose random src and dest
+                    route_turn = np.random.randint(1, 9)  
                     if route_turn == 1:
                         print('    <vehicle id="W_N_%i" type="standard_car" route="W_N" depart="%s" departLane="random" departSpeed="10" />' % (car_counter, step), file=routes)
                     elif route_turn == 2:
@@ -73,5 +68,4 @@ class TrafficGenerator:
                         print('    <vehicle id="S_W_%i" type="standard_car" route="S_W" depart="%s" departLane="random" departSpeed="10" />' % (car_counter, step), file=routes)
                     elif route_turn == 8:
                         print('    <vehicle id="S_E_%i" type="standard_car" route="S_E" depart="%s" departLane="random" departSpeed="10" />' % (car_counter, step), file=routes)
-
             print("</routes>", file=routes)
